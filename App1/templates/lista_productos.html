@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <!-- Enlace al archivo CSS de Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="{% url 'agregar_producto' %}" class="btn btn-success mt-3">Agregar Producto</a>
+
+        <!-- Título y lista de productos -->
+        <h1>Lista de Productos</h1>
+        <ul class="list-group">
+            {% for producto in productos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ producto.nombre }} - Stock: {{ producto.stock }} - Proveedor: {{ producto.fk_prov.nombre }}
+                    <div class="btn-group" role="group" aria-label="Acciones">
+                        <a href="{% url 'editar_producto' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Botón para agregar un nuevo producto -->
+    </div>
+
+    <!-- Enlaces a los scripts de Bootstrap y jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

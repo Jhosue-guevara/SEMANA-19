@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Proveedor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Proveedor</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre">
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" oninput="validarTelefono(this)">
+            </div>
+            <input type="submit" value="Guardar" class="btn btn-primary">
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+     <!-- SweetAlert y Bootstrap JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validarTelefono(input) {
+            var telefono = input.value;
+            if (telefono.length < 1 || telefono.length > 8) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La longitud del teléfono debe ser entre 1 y 8 caracteres'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
