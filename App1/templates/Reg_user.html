@@ -73,12 +73,16 @@
                                             {{ form.group }}
                                         </div>
 
-                                        <div class="form-check d-flex justify-content-center mb-5">
-                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                            <label class="form-check-label" for="form2Example3c">
-                                                Acepto todos los términos y condiciones
-                                            </label>
-                                        </div>
+                                        <!-- ... (código HTML existente) ... -->
+
+<div class="form-check mb-5">
+    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+    <label class="form-check-label d-flex justify-content-between" for="form2Example3c">
+        <span>Acepto todos los términos y condiciones</span>
+        <span></span> <!-- Espacio en blanco para alinear a la derecha -->
+    </label>
+</div>
+
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                             <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
@@ -95,6 +99,64 @@
             </div>
         </div>
     </section>
+<!-- ... (código HTML existente) ... -->
+
+<!-- ... (código HTML existente) ... -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            const passwordInput = document.querySelector('#id_password1');
+            const password = passwordInput.value;
+
+            // Expresiones regulares para validar la contraseña
+            const regexDigits = /[0-9]/g;
+            const regexLetters = /[a-zA-Z]/g;
+            const regexSpecial = /[^a-zA-Z0-9]/g;
+
+            const hasMinimumLength = password.length >= 8;
+            const hasMinimumDigits = (password.match(regexDigits) || []).length >= 2;
+            const hasMinimumLetters = (password.match(regexLetters) || []).length >= 2;
+            const hasMinimumSpecial = (password.match(regexSpecial) || []).length >= 1;
+
+            if (!hasMinimumLength || !hasMinimumDigits || !hasMinimumLetters || !hasMinimumSpecial) {
+                event.preventDefault(); // Detiene el envío del formulario
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Contraseña inválida',
+                    html: 'La contraseña debe tener al menos:<br>' +
+                        '- 8 caracteres en total<br>' +
+                        '- 2 dígitos<br>' +
+                        '- 2 letras<br>' +
+                        '- 1 carácter especial'
+                });
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const checkbox = document.getElementById('form2Example3c'); // Reemplaza con el ID correcto del checkbox
+
+        form.addEventListener('submit', function (event) {
+            if (!checkbox.checked) {
+                event.preventDefault(); // Detiene el envío del formulario si el checkbox no está marcado
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Términos no aceptados',
+                    text: 'Debes aceptar los términos y condiciones.'
+                });
+            }
+        });
+    });
+</script>
 
     <!-- Agrega los scripts de Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
